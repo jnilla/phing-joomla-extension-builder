@@ -1,52 +1,175 @@
-phing-joomla-extension-builder
-==============================
+# phing-joomla-extension-builder
 
-Phing script to automate Joomla extensions building
+Phing script for Joomla 2.5 and 3.0 extensions building automation.
 
+## Introduction
 
-Introduction
-==============================
+If you are developing an extension or template inside a Joomla site, and you need to fetch all the changes and create an new installer for that specific extension, this script is the solution to do this job automatically.
 
-This script is intended to be used if you are in a situation where you develop your extensions inside a joomla tree but store them in a repository or folder outside the tree. The script provides functionality to copy the extension by name out of the joomla tree.
+## Considerations
 
-Naming conventions
-==============================
+To use this script your extension and templates files and folders must follow the Joomla standard naming conventions and typical folder structures for extension and templates.
+
+The following example shows how a component folders and files looks before and after the installation, to figure out how other extension move the files and folder before and after the installation consult the XML manifest file of the given extension.
+
+(!) Note that the language files must be inside the component folder for "administrator" side and "site" side, this is the new standard for 1.6+ Joomla sites
+
+** Before installation **
+
+com_mytestcomponent
+├── admin
+│   ├── controller.php
+│   ├── controllers
+│   ├── mytestcomponent.php
+│   ├── index.html
+│   ├── language (!)
+│   ├── models
+│   ├── sql
+│   ├── tables
+│   └── views
+├── mytestcomponent.xml  (manifest file)
+├── media
+│   ├── css
+│   ├── images
+│   └── js
+└── site
+    ├── controller.php
+    ├── controllers
+    ├── mytestcomponent.php
+    ├── index.html
+    ├── language (!)
+    ├── models
+    ├── router.php
+    └── views
+
+** After installation **
+
+mytestjoomlasite
+├── administrator
+│   └── components
+│       └── com_mytestcomponent
+│           ├── controller.php
+│           ├── controllers
+│           ├── mytestcomponent.php
+│           ├── index.html
+│           ├── language
+│           ├── models
+│           ├── sql
+│           ├── tables
+│           ├── views
+│           └── mytestcomponent.xml  (manifest file)
+├── components
+│   └── com_mytestcomponent
+│       ├── controller.php
+│       ├── controllers
+│       ├── mytestcomponent.php
+│       ├── index.html
+│       ├── language
+│       ├── models
+│       ├── router.php
+│       └── views
+└── media
+    └── com_mytestcomponent
+        ├── css
+        ├── images
+        └── js
+
+## Instructions
+
+### Setup
+
+For this instructions we will assume the following setups
+
+- The Joomla site is located at
+
+	/home/youruser/lamp/public_html/mytestjoomlasite/
+	
+- The extension source folder is located at
+
+	/home/youruser/Documents/mytestcomponent/
+
+This is a typical Linux folder structure replace "/home/youruser/" with "C:\Users\username" for Winblow$ machines.
+
+### Script files
+
+Get inside your extension source folder 
+
+	/home/youruser/Documents/mytestcomponent/
+
+Inside this folder copy and paste the following script files
+
+- phing-joomla-extension-builder.xml
+- phing-joomla-extension-builder.properties.dist
+
+Open the file
+
+	phing-joomla-extension-builder.properties.dist
+	
+The parameter "source.dir" sets the location of your Joomla site, this should looks like this
+
+	source.dir=/home/youruser/lamp/public_html/mytestjoomlasite/
+
+Save changes
+
+### Building an extension
+
+Assuming you already have your component "mytestcomponent" installed in your "mytestjoomlasite" Joomla site, then let's proceed to build a new installer with that information.
 
 The script uses the extension prefix to determine the extension type, so you have to use the following prefixes to the extension=VALUE
 
-component : "com_"
-module : "mod_"
-template : "tpl_"
-plugin: "plg_GROUP_"
+- component : "com_"
+- module : "mod_"
+- template : "tpl_"
+- plugin: "plg_GROUP_"
 
 Administrator modules and templates must use the following prefixes
 
-module: "mod_admin_"
-template: "tpl_admin_"
+- module: "mod_admin_"
+- template: "tpl_admin_"
 
-Language files
-==============================
+In our case we are working with a normal component so our prefix will be "com_"
 
-When using this script, the language files for an extension needs to be stored within the folder of the extension itself and not in the global language folder.
+Open your terminal and locate at the extension soruce folder
 
-Usage examples
-==============================
+	cd /home/youruser/Documents/mytestcomponent/
 
-Building an extension from the joomla source tree
+Now to build the extension run the following command
+
+	phing -Dextension=com_mytestcomponent build
+
+If no error messages are present, then congratulations you just build your first component installer "+1 for you"
+
+#### Warning
+
+To build the extension this script **deletes** the content of the extension source folder and then copy the extension files from the Joomla site, in other words, don't make changes on the files and folders of your extension source location because the can be delete by the script, instead do the changes in the Joomla site and build the extension again.
+
+## More Examples
+
+### Building extension from the Joomla site
+
+We can build any installed extension from the Joomla site, for example, we can build the component "com_content" whit is responsible to manage and display articles.
 
 	phing -Dextension=com_content build
 
-Creating a package
+Note: This example assumes you have created a source folder for this extension and have the script parameters configured correctly
 
-	Once you have built an extension you can create an installable package from the build using the following command.
+### Creating a package
 
-	phing -Dextension=com_content
+Once you have built any extension you can create an installable package from the build using the following command.
 
-	This will create a package file "com_content_DATE.zip"
+	phing -Dextension=com_mytestcomponent
 
-	If you also wish to add a version number you can use the following procedure
+This will create a package file "com_mytestcomponent_DATE.zip"
 
-	phing -Dextension=com_content -Dversion=2.5
+If you also wish to add a version number you can use the following procedure
+
+	phing -Dextension=com_mytestcomponent -Dversion=2.5
+
+or
+
+	phing -Dextension=com_mytestcomponent -Dversion=3.0
 	
-### Original source code from
-https://github.com/rvsjoen/joomla-helloworld/tree/master/25
+## Original source code and idea from
+
+(https://github.com/rvsjoen/joomla-helloworld/tree/master/25)
+
