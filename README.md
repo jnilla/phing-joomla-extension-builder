@@ -1,6 +1,6 @@
 # phing-joomla-extension-builder
 
-Phing script for Joomla 2.5 and 3.0 extensions building automation.
+Phing script for Joomla 2.5 and 3.0 extension building automation.
 
 ## Introduction
 
