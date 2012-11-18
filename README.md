@@ -16,63 +16,63 @@ The following example shows how a component folders and files looks before and a
 
 ** Before installation **
 
-com_mytestcomponent
-├── admin
-│   ├── controller.php
-│   ├── controllers
-│   ├── mytestcomponent.php
-│   ├── index.html
-│   ├── language (!)
-│   ├── models
-│   ├── sql
-│   ├── tables
-│   └── views
-├── mytestcomponent.xml  (manifest file)
-├── media
-│   ├── css
-│   ├── images
-│   └── js
-└── site
-    ├── controller.php
-    ├── controllers
-    ├── mytestcomponent.php
-    ├── index.html
-    ├── language (!)
-    ├── models
-    ├── router.php
-    └── views
+	com_mytestcomponent
+	├── admin
+	│   ├── controller.php
+	│   ├── controllers
+	│   ├── mytestcomponent.php
+	│   ├── index.html
+	│   ├── language (!)
+	│   ├── models
+	│   ├── sql
+	│   ├── tables
+	│   └── views
+	├── mytestcomponent.xml  (manifest file)
+	├── media
+	│   ├── css
+	│   ├── images
+	│   └── js
+	└── site
+	    ├── controller.php
+	    ├── controllers
+	    ├── mytestcomponent.php
+	    ├── index.html
+	    ├── language (!)
+	    ├── models
+	    ├── router.php
+	    └── views
 
 ** After installation **
 
-mytestjoomlasite
-├── administrator
-│   └── components
-│       └── com_mytestcomponent
-│           ├── controller.php
-│           ├── controllers
-│           ├── mytestcomponent.php
-│           ├── index.html
-│           ├── language
-│           ├── models
-│           ├── sql
-│           ├── tables
-│           ├── views
-│           └── mytestcomponent.xml  (manifest file)
-├── components
-│   └── com_mytestcomponent
-│       ├── controller.php
-│       ├── controllers
-│       ├── mytestcomponent.php
-│       ├── index.html
-│       ├── language
-│       ├── models
-│       ├── router.php
-│       └── views
-└── media
-    └── com_mytestcomponent
-        ├── css
-        ├── images
-        └── js
+	mytestjoomlasite
+	├── administrator
+	│   └── components
+	│       └── com_mytestcomponent
+	│           ├── controller.php
+	│           ├── controllers
+	│           ├── mytestcomponent.php
+	│           ├── index.html
+	│           ├── language
+	│           ├── models
+	│           ├── sql
+	│           ├── tables
+	│           ├── views
+	│           └── mytestcomponent.xml  (manifest file)
+	├── components
+	│   └── com_mytestcomponent
+	│       ├── controller.php
+	│       ├── controllers
+	│       ├── mytestcomponent.php
+	│       ├── index.html
+	│       ├── language
+	│       ├── models
+	│       ├── router.php
+	│       └── views
+	└── media
+	    └── com_mytestcomponent
+	        ├── css
+	        ├── images
+	        └── js
 
 ## Instructions
 
@@ -171,5 +171,5 @@ or
 	
 ## Original source code and idea from
 
-(https://github.com/rvsjoen/joomla-helloworld/tree/master/25)
+https://github.com/rvsjoen/joomla-helloworld/tree/master/25
 
