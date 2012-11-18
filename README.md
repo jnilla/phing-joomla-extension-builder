@@ -14,7 +14,7 @@ The following example shows how a component folders and files looks before and a
 
 (!) Note that the language files must be inside the component folder for "administrator" side and "site" side, this is the new standard for 1.6+ Joomla sites
 
-** Before installation **
+**Before installation**
 
 	com_mytestcomponent
 	├── admin
@@ -42,7 +42,7 @@ The following example shows how a component folders and files looks before and a
 	    ├── router.php
 	    └── views
 
-** After installation **
+**After installation**
 
 	mytestjoomlasite
 	├── administrator
@@ -76,9 +76,7 @@ The following example shows how a component folders and files looks before and a
 
 ## Instructions
 
-### Setup
-
-For this instructions we will assume the following setups
+For this instructions we will assume the following example setup
 
 - The Joomla site is located at
 
@@ -92,7 +90,7 @@ This is a typical Linux folder structure replace "/home/youruser/" with "C:\User
 
 ### Script files
 
-Get inside your extension source folder 
+Get inside your extension source folder
 
 	/home/youruser/Documents/mytestcomponent/
 
