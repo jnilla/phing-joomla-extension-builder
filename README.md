@@ -96,12 +96,12 @@ Get inside your extension source folder
 
 Inside this folder copy and paste the following script files
 
-- phing-joomla-extension-builder.xml
-- phing-joomla-extension-builder.properties.dist
+- build.xml
+- build.properties.dist
 
 Open the file
 
-	phing-joomla-extension-builder.properties.dist
+	build.properties.dist
 	
 The parameter "source.dir" sets the location of your Joomla site, this should looks like this
 
@@ -149,7 +149,7 @@ We can build any installed extension from the Joomla site, for example, we can b
 
 	phing -Dextension=com_content build
 
-Note: This example assumes you have created a source folder for this extension and have the script parameters configured correctly
+Note: This example assumes you have already have a source folder for this extension and have the script parameters configured correctly
 
 ### Creating a package
 
@@ -166,7 +166,13 @@ If you also wish to add a version number you can use the following procedure
 or
 
 	phing -Dextension=com_mytestcomponent -Dversion=3.0
-	
+
+### Using an alternative name for the build file
+
+If for some reason you need to rename the file "build.xml" use this parameter to tell phing to run your custom named build file "-f <filename>", i.e.: Let's say we renamed our build file from "build.xml" to "phing-joomla-extension-builder.xml", the execution command will looks like this. 
+
+	phing -Dextension=com_mytestcomponent build -f phing-joomla-extension-builder.xml
+
 ## Original source code and idea from
 
 https://github.com/rvsjoen/joomla-helloworld/tree/master/25

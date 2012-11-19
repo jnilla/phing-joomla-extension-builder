@@ -13,7 +13,7 @@
 	<!-- Do initialization stuff -->
 	<target name="prepare" depends="_customtasks">
         <jproject name="${extension}" />
-		<property file="phing-joomla-extension-builder.properties"  override="true"/>
+		<property file="build.properties.dist"  override="true"/>
 		<if>
 			<equals arg1="${extension}" arg2="" />
 			<then>
