@@ -113,21 +113,21 @@ Save changes
 
 Assuming you already have your component "mytestcomponent" installed in your "mytestjoomlasite" Joomla site, then let's proceed to build a new installer with that information.
 
-The script uses the extension prefix to determine the extension type, so you have to use the following prefixes to the extension=VALUE
+The script uses the extension prefix to determine the extension type, so you have to use the following prefixes:
 
 - component : "com_"
 - module : "mod_"
 - template : "tpl_"
 - plugin: "plg_GROUP_"
 
-Administrator modules and templates must use the following prefixes
+Administrator modules and templates must use the following prefixes:
 
 - module: "mod_admin_"
 - template: "tpl_admin_"
 
 In our case we are working with a normal component so our prefix will be "com_"
 
-Open your terminal and locate at the extension soruce folder
+Open your terminal and locate at the extension source folder folder
 
 	cd /home/youruser/Documents/mytestcomponent/
 
@@ -136,6 +136,13 @@ Now to build the extension run the following command
 	phing -Dextension=com_mytestcomponent build
 
 If no error messages are present, then congratulations you just build your first component installer "+1 for you"
+
+To create a build with a custom version number use 
+
+	phing -Dextension=com_mytestcomponent build -Dversion=x.x.x
+
+Where "x.x.x" are the version numbers, for example "1.0.2"
+
 
 #### Warning
 
