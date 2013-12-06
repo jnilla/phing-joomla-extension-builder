@@ -1,14 +1,14 @@
 # phing-joomla-extension-builder
 
-Phing script for Joomla 2.5 and 3.0 extension building automation.
+Phing script for extension building.
 
-## Introduction
+## Description
 
-If you are developing an extension or template inside a Joomla site, and you need to fetch all the changes and create an new installer for that specific extension, this script is the solution to do this job automatically.
+If you are developing an extension inside a Joomla site, and you need to fetch all the changes and create an new installer for that specific extension, this script is the solution to do this job automatically.
 
 ## Considerations
 
-To use this script your extension and templates files and folders must follow the Joomla standard naming conventions and typical folder structures for extension and templates.
+To use this script your extension and templates files and folders must follow the Joomla standard naming conventions and typical folder structures for extension.
 
 The following example shows how a component folders and files looks before and after the installation, to figure out how other extension move the files and folder before and after the installation consult the XML manifest file of the given extension.
 
@@ -74,9 +74,9 @@ The following example shows how a component folders and files looks before and a
 	        ├── images
 	        └── js
 
-## Instructions
+## Quick Tutorial
 
-For this instructions we will assume the following example setup
+For this quick tutorial we will assume the following setup
 
 - The Joomla site is located at
 
@@ -107,6 +107,8 @@ The parameter "source.dir" sets the location of your Joomla site, this should lo
 
 	source.dir=/home/youruser/lamp/public_html/mytestjoomlasite/
 
+make sure to add that las "/"
+
 Save changes
 
 ### Building an extension
@@ -119,6 +121,7 @@ The script uses the extension prefix to determine the extension type, so you hav
 - module : "mod_"
 - template : "tpl_"
 - plugin: "plg_GROUP_"
+- library: "lib_"
 
 Administrator modules and templates must use the following prefixes:
 
@@ -127,7 +130,7 @@ Administrator modules and templates must use the following prefixes:
 
 In our case we are working with a normal component so our prefix will be "com_"
 
-Open your terminal and locate at the extension source folder folder
+Open your terminal and locate yourself at the extension source folder folder
 
 	cd /home/youruser/Documents/mytestcomponent/
 
@@ -143,22 +146,28 @@ To create a build with a custom version number use
 
 Where "x.x.x" are the version numbers, for example "1.0.2"
 
-
 #### Warning
 
-To build the extension this script **deletes** the content of the extension source folder and then copy the extension files from the Joomla site, in other words, don't make changes on the files and folders of your extension source location because the can be delete by the script, instead do the changes in the Joomla site and build the extension again.
+To build the extension this script **deletes** the content of the extension source folder and then copy the extension files from the Joomla site, in other words, don't make changes on the files and folders of your extension source location because they can be delete by the script, instead do the changes in the Joomla site and build the extension again.
 
 ## More Examples
 
 ### Building extension from the Joomla site
 
-We can build any installed extension from the Joomla site, for example, we can build the component "com_content" whit is responsible to manage and display articles.
+We can build any installed extension from a Joomla site, for example, we can build the component "com_content" whit is responsible to manage and display articles.
 
 	phing -Dextension=com_content build
 
 Note: This example assumes you have already have a source folder for this extension and have the script parameters configured correctly
 
-### Creating a package
+Other examples may looks like this:
+
+	phing -Dextension=com_contact build
+	phing -Dextension=plg_system_redirect build
+	phing -Dextension=mod_menu build
+	phing -Dextension=tpl_protostart build
+
+### Creating an installer package
 
 Once you have built any extension you can create an installable package from the build using the following command.
 
