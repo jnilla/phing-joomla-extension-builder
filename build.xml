@@ -237,7 +237,26 @@
 		<phingcall target="_clean" />
 		<phingcall target="_sync" />
 	</target>
+	
+	<!-- Build target for library -->
+	<target name="_library">
 
+		<copy todir="${build.dir}/${extension}" haltonerror="false">
+			<fileset dir="${source.dir}/libraries/${project.dir}">
+				<include name="**/*"/>
+			</fileset>
+		</copy>
+		<copy todir="${build.dir}/${extension}" haltonerror="true">
+			<fileset dir="${source.dir}/administrator/manifests/libraries">
+				<include name="${project.manifest}.xml" />
+			</fileset>
+		</copy>
+		
+		<!-- Now that we have built the extension put it back into the repository -->
+		<phingcall target="_clean" />
+		<phingcall target="_sync" />
+	</target>
+	
     <target name="_customtasks">
         <adhoc-task name="jproject">
             <![CDATA[
@@ -277,6 +296,12 @@
                                     $this->project->setProperty("project.client", "admin");
                                 }
                                 break;
+							case 'lib':
+                                $this->project->setProperty("project.name", $str);
+                                $this->project->setProperty("project.type", "library");
+                                $this->project->setProperty("project.dir", $arr[1]);
+                                $this->project->setProperty("project.manifest", $arr[1]);
+                                break;                                
                         }
                     }
 
