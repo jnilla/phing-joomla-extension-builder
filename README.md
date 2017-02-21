@@ -193,3 +193,6 @@ If for some reason you need to rename the file "build.xml" use this parameter to
 
 https://github.com/rvsjoen/joomla-helloworld/tree/master/25
 
+## Note
+
+An alternative replacement for this project is under development here: https://github.com/enav/jn-build
