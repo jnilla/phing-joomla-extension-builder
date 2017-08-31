@@ -184,23 +184,31 @@
 		<!-- First we check if the extension has a media folder -->
 		<phingcall target="_media" />
 
-		<property name="source.dir" value="${source.dir}/plugins/${plugin.group}/${project.dir}" override="true"/>
-
-		<available file="${source.dir}" type="dir" property="source.available" value="true" />
+		<!-- Source -->
+		<property name="code.dir" value="${source.dir}/plugins/${plugin.group}/${project.dir}" override="true"/>
+		<available file="${code.dir}" type="dir" property="source.available" value="true" />
 		<if>
-			<equals arg1="${source.available}" arg2="1" />
-			<then>
-				<echo msg="Building plugin from source tree ${source.dir}" />
-				<copy todir="${build.dir}/${extension}" haltonerror="false">
-					<fileset dir="${source.dir}">
-						<include name="**/*"/>
-					</fileset>
-				</copy>
-			</then>
-			<else>
-				<fail msg="Source folder does not exist ${source.dir}" />
-			</else>
+                    <equals arg1="${source.available}" arg2="1" />
+                    <then>
+                        <echo msg="Building plugin from source tree ${code.dir}" />
+                        <copy todir="${build.dir}/${extension}" haltonerror="false">
+                            <fileset dir="${code.dir}">
+                                <include name="**/*"/>
+                            </fileset>
+                        </copy>
+                    </then>
+                    <else>
+                        <fail msg="Source folder does not exist ${code.dir}" />
+                    </else>
 		</if>
+
+		<!-- Languages -->
+		<property name="language.dir" value="${source.dir}/administrator/language" override="false"/>
+		<copy todir="${build.dir}/${extension}/language" haltonerror="false">
+                    <fileset dir="${language.dir}">
+                        <include name="**/*.${extension}.*"/>
+                    </fileset>
+		</copy>
 
 		<!-- Now that we have built the extension put it back into the repository -->
 		<phingcall target="_clean" />
