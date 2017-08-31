@@ -84,7 +84,7 @@ For this quick tutorial we will assume the following setup
 	
 - The extension source folder is located at
 
-	/home/youruser/Documents/mytestcomponent/
+	/home/youruser/Documents/mytestextensions/
 
 This is a typical Linux folder structure replace "/home/youruser/" with "C:\Users\username" for Winblow$ machines.
 
@@ -92,7 +92,7 @@ This is a typical Linux folder structure replace "/home/youruser/" with "C:\User
 
 Get inside your extension source folder
 
-	/home/youruser/Documents/mytestcomponent/
+	/home/youruser/Documents/mytestextensions/
 
 Inside this folder copy and paste the following script files
 
@@ -107,7 +107,7 @@ The parameter "source.dir" sets the location of your Joomla site, this should lo
 
 	source.dir=/home/youruser/lamp/public_html/mytestjoomlasite/
 
-make sure to add that las "/"
+make sure to add that last "/"
 
 Save changes
 
@@ -130,9 +130,9 @@ Administrator modules and templates must use the following prefixes:
 
 In our case we are working with a normal component so our prefix will be "com_"
 
-Open your terminal and locate yourself at the extension source folder folder
+Open your terminal and locate yourself to the extension source folder
 
-	cd /home/youruser/Documents/mytestcomponent/
+	cd /home/youruser/Documents/mytestextensions/
 
 Now to build the extension run the following command
 
@@ -154,7 +154,7 @@ To build the extension this script **deletes** the content of the extension sour
 
 ### Building extension from the Joomla site
 
-We can build any installed extension from a Joomla site, for example, we can build the component "com_content" whit is responsible to manage and display articles.
+We can build any installed extension from a Joomla site, for example, we can build the component "com_content" which is responsible to manage and display articles.
 
 	phing -Dextension=com_content build
 
@@ -196,3 +196,57 @@ https://github.com/rvsjoen/joomla-helloworld/tree/master/25
 ## Note
 
 An alternative replacement for this project is under development here: https://github.com/enav/jn-build
+
+## Building a library
+
+Assuming you already have your library "*mytestlibrary*" installed in your "*mytestjoomlasite*". The following example shows how library folders and files looks before and after the installation.
+
+(!) Note that the language files must be inside the separate folder "*language*" of the installation package. After library installation they go to the common Joomla site language folder "*mytestjoomlasite/language/xx-XX*".
+
+**Before installation** - Installation package
+
+	lib_mytestlibrary
+	├── mytestlibrary
+	│   ├── libraryfolder1
+	│   ├── libraryfolderN
+	│   ├── libraryfile.php
+	│   └── LICENSE.txt
+	├── language
+	│   ├── en-GB
+	│   │	├── en-GB.lib_mytestlibrary.ini
+	│   │	└── en-GB.lib_mytestlibrary.sys.ini
+	│   └── xx-XX
+	│       ├── xx-XX.lib_mytestlibrary.ini
+	│       └── xx-XX.lib_mytestlibrary.sys.ini
+	└── mytestlibrary.xml  (manifest file)
+
+**After installation** - Joomla site
+
+	mytestjoomlasite
+	├── administrator
+	│   └── manifests
+	│       └── libraries
+	│           └── mytestlibrary.xml
+	├── language
+	│   ├── en-GB
+	│   │	├── en-GB.lib_mytestlibrary.ini
+	│   │	└── en-GB.lib_mytestlibrary.sys.ini
+	│   └── xx-XX
+	│       ├── xx-XX.lib_mytestlibrary.ini
+	│       └── xx-XX.lib_mytestlibrary.sys.ini
+	└── libraries
+	    └── mytestlibrary
+	        ├── libraryfolder1
+	        ├── libraryfolderN
+	        ├── libraryfile.php
+	        └── LICENSE.txt
+
+In our case we are working with a normal library so our prefix will be "*lib_*". Open your terminal and locate yourself to your source folder common for all extensions
+
+	cd /home/youruser/Documents/mytestextensions/
+
+Now to build the extension run the following command
+
+	phing -Dextension=lib_mytestlibrary build
+
+All other variations of the command aforementioned for components are valid for libraries as well.

@@ -207,6 +207,40 @@
 		<phingcall target="_sync" />
 	</target>
 
+	<!-- Build target for libraries -->
+	<target name="_library">
+		<!-- First we check if the extension has a media folder -->
+		<phingcall target="_media" />
+
+		<!-- Source -->
+		<property name="code.dir" value="${source.dir}/libraries/${project.dir}" override="false"/>
+		<copy todir="${build.dir}/${extension}/${project.dir}" haltonerror="false">
+                    <fileset dir="${code.dir}">
+                        <include name="**/*"/>
+                    </fileset>
+		</copy>
+
+		<!-- Manifest -->
+		<property name="manifest.dir" value="${source.dir}/administrator/manifests/libraries" override="false"/>
+		<copy todir="${build.dir}/${extension}" haltonerror="false">
+                    <fileset dir="${manifest.dir}">
+                        <include name="${project.manifest}.xml"/>
+                    </fileset>
+		</copy>
+
+		<!-- Languages -->
+		<property name="language.dir" value="${source.dir}/language" override="false"/>
+		<copy todir="${build.dir}/${extension}/language" haltonerror="false">
+                    <fileset dir="${language.dir}">
+                        <include name="**/*.${extension}.*"/>
+                    </fileset>
+		</copy>
+
+		<!-- Now that we have built the extension put it back into the repository -->
+		<phingcall target="_clean" />
+		<phingcall target="_sync" />
+	</target>
+
 	<!-- Build target for templates -->
 	<target name="_template">
 		<if>
@@ -249,6 +283,11 @@
                         $arr = explode("_", $str);
                         $prefix = $arr[0];
                         switch($prefix){
+                            case 'lib':
+                                $this->project->setProperty("project.type", "library");
+                                $this->project->setProperty("project.dir", $arr[1]);
+                                $this->project->setProperty("project.manifest", $arr[1]);
+                                break;
                             case 'plg':
                                 $this->project->setProperty("project.type", "plugin");
                                 $this->project->setProperty("plugin.group", $arr[1]);
